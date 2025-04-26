@@ -36,7 +36,7 @@ public class Usuario {
     private String email;
     @Column(nullable = false,length = 255)
     private String password;
-    @Column(nullable = false,length = 20)
+    @Column(nullable = true,length = 20)
     private String telefone;
     private boolean codStatus;
 

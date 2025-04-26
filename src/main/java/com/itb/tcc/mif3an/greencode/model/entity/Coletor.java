@@ -4,6 +4,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "DOADOR")
+@DiscriminatorValue(value = "COLETOR")
 public class Coletor extends Usuario {
 }
