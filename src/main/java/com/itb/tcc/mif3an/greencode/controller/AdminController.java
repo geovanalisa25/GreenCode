@@ -28,9 +28,15 @@ public class AdminController {
         return ResponseEntity.ok().body(materialService.findAll());
     }
 
+    @GetMapping("/categoria")
+    public ResponseEntity<List<Categoria>> listarCategorias(){
+        return ResponseEntity.ok().body(categoriaService.findAll());
+    }
+
     @PostMapping("/categoria")
     public ResponseEntity<Categoria> salvarCategoria(@RequestBody Categoria categoria){
 
+        return null;
     }
 
 }
