@@ -1,6 +1,15 @@
 package com.itb.tcc.mif3an.greencode.model.entity;
 
+
+
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 
 import static com.itb.tcc.mif3an.greencode.model.entity.Permission.*;
 
@@ -54,4 +63,20 @@ public enum Role {
     public Set<Permission> getPermissions() {
         return permissions;
     }
+
+
+    public Collection<? extends GrantedAuthority> getAuthorities () {
+        var authorities = getPermissions().stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + name()));
+        return authorities;
+    }
+
+
 }
+
+
+
+
+

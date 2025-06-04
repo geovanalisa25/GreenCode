@@ -7,7 +7,15 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.SQLServerDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     properties:
       hibernate:
         show_sql: true
+
+application:
+  security:
+    jwt:
+      secret-key: +0RDixKQMjuf36BQrojZgbafxfH/pHNgcKvVJVIMvzeFDvH/1GwOG5EOebLRGs4j
+      expiration: 86400000 # 1 dia
+      refresh-token:
+        expiration: 604800000 # 7 dias

@@ -3,6 +3,7 @@ package com.itb.tcc.mif3an.greencode.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "Material")
 @Data
-
+@NoArgsConstructor
 
 public class Material {
     @Id
@@ -23,12 +24,15 @@ public class Material {
     private String tipoMaterial;
     @Column(nullable = true,columnDefinition = "VARCHAR(MAX)")
     private String descricao;
-    @Column(nullable = false)
-    private int quantidade;
-    @Column(nullable = false)
+
+   /* @Column(nullable = false)
+    private int quantidade;*/
+
+    /*@Column(nullable = false)
     private LocalDate dataCadastro;
     @Column(nullable = false)
-    private LocalDate dataDisponibilidade;
+    private LocalDate dataDisponibilidade;*/
+
     private boolean codStatus;
 
 @OneToMany (mappedBy = "material", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -37,7 +41,8 @@ private List<AgendamentoMaterial> agendamentoMaterial = new ArrayList<>();
 
 
 
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn (name = "categoria_id", referencedColumnName = "id", nullable = false)
     private Categoria categoria;
 

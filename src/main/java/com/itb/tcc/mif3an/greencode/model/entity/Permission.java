@@ -2,18 +2,18 @@ package com.itb.tcc.mif3an.greencode.model.entity;
 
 public enum Permission {
 
-    ADMIN_READ("admin:read"),
-    ADMIN_UPDATE("admin:update"),
-    ADMIN_CREATE("admin:create"),
-    ADMIN_DELETE("admin:delete"),
-    DOADOR_READ("doador:read"),
-    DOADOR_UPDATE("doador:update"),
-    DOADOR_CREATE("doador:create"),
-    DOADOR_DELETE("doador:delete"),
-    COLETOR_READ("coletor:read"),
-    COLETOR_UPDATE("coletor:update"),
-    COLETOR_CREATE("coletor:create"),
-    COLETOR_DELETE("coletor:delete");
+    ADMIN_READ("ADMIN_READ"),
+    ADMIN_UPDATE("ADMIN_UPDATE"),
+    ADMIN_CREATE("ADMIN_CREATE"),
+    ADMIN_DELETE("ADMIN_DELETE"),
+    DOADOR_READ("DOADOR_READ"),
+    DOADOR_UPDATE("DOADOR_UPDATEe"),
+    DOADOR_CREATE("DOADOR_CREATE"),
+    DOADOR_DELETE("DOADOR_DELETE"),
+    COLETOR_READ("COLETOR_READ"),
+    COLETOR_UPDATE("COLETOR_UPDATE"),
+    COLETOR_CREATE(" COLETOR_CREATE"),
+    COLETOR_DELETE("COLETOR_DELETE");
 
 
 

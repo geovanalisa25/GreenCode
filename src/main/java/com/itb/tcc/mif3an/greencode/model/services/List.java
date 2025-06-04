@@ -1,0 +1,4 @@
+package com.itb.tcc.mif3an.greencode.model.services;
+
+public class List<T> {
+}

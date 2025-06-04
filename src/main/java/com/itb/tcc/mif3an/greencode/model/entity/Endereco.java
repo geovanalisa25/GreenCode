@@ -3,10 +3,12 @@ package com.itb.tcc.mif3an.greencode.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table (name = "Endereco")
 @Data
+@NoArgsConstructor
 
 
 public class Endereco {

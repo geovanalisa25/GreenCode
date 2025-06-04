@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "DOADOR")
-public class Doador extends Usuario{
+public class Doador extends Usuario {
 
 @OneToMany(mappedBy = "doador", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 @JsonIgnore

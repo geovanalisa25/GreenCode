@@ -3,6 +3,7 @@ package com.itb.tcc.mif3an.greencode.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "Agendamento")
 @Data
+@NoArgsConstructor
 
 public class Agendamento {
     @Id
