@@ -1,6 +1,8 @@
 package com.itb.tcc.mif3an.greencode.exceptions;
 
 
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -44,6 +46,32 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
 
+    }
+
+    @ExceptionHandler(value = {NotFound.class})
+    public ResponseEntity<Object> notFoundException(NotFound ex) {
+        LocalDateTime localDateTimeBrasil = LocalDateTime.now(zoneIdBrasil);
+        String errorMessageDescription = ex.getLocalizedMessage();
+        System.out.println(errorMessageDescription);
+        if (errorMessageDescription == null) {
+            errorMessageDescription = ex.toString();
+        }
+        arrayMessage = errorMessageDescription.split(":");
+        ErrorMessage errorMessage = new ErrorMessage(localDateTimeBrasil, arrayMessage, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {Unauthorized.class})
+    public ResponseEntity<Object> unauthorizedException(NotFound ex) {
+        LocalDateTime localDateTimeBrasil = LocalDateTime.now(zoneIdBrasil);
+        String errorMessageDescription = ex.getLocalizedMessage();
+        System.out.println(errorMessageDescription);
+        if (errorMessageDescription == null) {
+            errorMessageDescription = ex.toString();
+        }
+        arrayMessage = errorMessageDescription.split(":");
+        ErrorMessage errorMessage = new ErrorMessage(localDateTimeBrasil, arrayMessage, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 }
 

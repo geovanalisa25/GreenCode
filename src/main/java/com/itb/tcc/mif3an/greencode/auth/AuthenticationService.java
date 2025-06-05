@@ -5,8 +5,10 @@ package com.itb.tcc.mif3an.greencode.auth;
 import com.itb.tcc.mif3an.greencode.config.JwtService;
 
 import com.itb.tcc.mif3an.greencode.exceptions.BadRequest;
+import com.itb.tcc.mif3an.greencode.exceptions.Unauthorized;
 import com.itb.tcc.mif3an.greencode.model.entity.Usuario;
 import com.itb.tcc.mif3an.greencode.model.repository.UsuarioRepository;
+import com.itb.tcc.mif3an.greencode.model.services.UsuarioService;
 import com.itb.tcc.mif3an.greencode.model.token.Token;
 import com.itb.tcc.mif3an.greencode.model.token.TokenRepository;
 import com.itb.tcc.mif3an.greencode.model.token.TokenType;
@@ -21,13 +23,22 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UsuarioService usuarioService;
 
-    public AuthenticationService(UsuarioRepository repository, TokenRepository tokenRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, UsuarioRepository repository1, TokenRepository tokenRepository1, PasswordEncoder passwordEncoder1, JwtService jwtService1, AuthenticationManager authenticationManager1) {
-        this.repository = repository1;
-        this.tokenRepository = tokenRepository1;
-        this.passwordEncoder = passwordEncoder1;
-        this.jwtService = jwtService1;
-        this.authenticationManager = authenticationManager1;
+    public AuthenticationService(UsuarioRepository repository,
+                                 TokenRepository tokenRepository,
+                                 PasswordEncoder passwordEncoder,
+                                 JwtService jwtService,
+                                 AuthenticationManager authenticationManager,
+                                 UsuarioService usuarioService)
+                                 {
+
+        this.repository = repository;
+        this.tokenRepository = tokenRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+        this.usuarioService = usuarioService;
     }
 
 
@@ -77,5 +88,32 @@ public class AuthenticationService {
                 token.setRevoked(false);
                 tokenRepository.save(token);
 
+            }
+
+            public AuthenticationResponse authenticate(AuthenticationRequest request) {
+                try {} catch (Exception e) {
+                    throw new BadRequest("Email Ou password incorreto");
+                }
+
+                var user = usuarioService.findByEmail(request.getEmail());
+                if(!user.isCodStatus()){
+                    throw new Unauthorized("Conta inativa, por favor procurar o administrador da conta");
+                }
+
+                var jwtToken = jwtService.generateToken(user);
+                var refreshToken = jwtService.generateRefreshToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, jwtToken);
+
+                return new AuthenticationResponse(jwtToken, refreshToken);
+            }
+            private void revokeAllUserTokens(Usuario usuario) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(usuario.getId());
+        if(validUserTokens.isEmpty()) return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
             }
         }
