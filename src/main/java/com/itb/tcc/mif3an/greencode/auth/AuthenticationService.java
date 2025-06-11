@@ -55,6 +55,7 @@ public class AuthenticationService {
             usuario.setCodStatus(true);
             usuario.setNome(request.getNome());
             usuario.setEmail(request.getEmail());
+            usuario.setCpf(request.getCpf());
             usuario.setPassword(passwordEncoder.encode(request.getPassword()));
             usuario.setRole(request.getRole());
             var usuarioDb = repository.findByEmail(request.getEmail());

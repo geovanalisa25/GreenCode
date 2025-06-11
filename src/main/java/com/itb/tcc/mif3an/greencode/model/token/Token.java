@@ -10,7 +10,7 @@ import lombok.Data;
 public class Token {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String token;
     @Enumerated(EnumType.STRING)

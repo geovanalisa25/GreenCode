@@ -9,6 +9,7 @@ public class RegisterRequest {
     private String nome;
     private String email;
     private String password;
+    private String cpf;
     private Role role;
 
     public RegisterRequest() {
@@ -16,11 +17,12 @@ public class RegisterRequest {
 
     }
 
-    public RegisterRequest(Role role, String password, String email, String nome) {
+    public RegisterRequest(Role role, String password, String email, String nome, String cpf) {
         this.role = role;
         this.password = password;
         this.email = email;
         this.nome = nome;
+        this.cpf = cpf;
     }
 }
 

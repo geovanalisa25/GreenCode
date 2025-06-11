@@ -40,27 +40,28 @@ public class Usuario implements UserDetails {
     @Column(nullable = false, length = 255)
     private String password;
 
-    @Column(length = 15)
-    private String cep;
+    /*@Column( length = 8)
+    /private String cep;*/
 
     @Column(length = 15)
     private String telefone;
 
-    private boolean codStatus;
 
-    @Column(length = 20)
+    @Column(nullable = false, length = 11)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
     @Column(insertable = false, updatable = false)
     private Role role;
 
+    private boolean codStatus;
+
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Token> tokens = new ArrayList<>();
 
-
+    @Transient
     private String mensagemdeerro = "";
 
     @Transient
